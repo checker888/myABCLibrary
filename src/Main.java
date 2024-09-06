@@ -187,17 +187,17 @@ public class Main {
         }
     }
     
-    //指定した値より大きい値が最初に出てくるidx
+    //指定した値以上の値が最初に出てくるidx
     public static int lowerBound(int []input, int value) {
+        value--;
         int idx = Arrays.binarySearch(input, value);
         if(idx < 0) idx = ~idx;
         else do idx++; while(idx != input.length && input[idx] == input[idx-1]) ;
         
         return idx;
     }
-    //指定した値以上の値が最初に出てくるidx
+    //指定した値より大きい値が最初に出てくるidx
     public static int upperBound(int []input, int value) {
-        value--;
         int idx = Arrays.binarySearch(input, value);
         if(idx < 0) idx = ~idx;
         else do idx++; while(idx != input.length && input[idx] == input[idx-1]) ;

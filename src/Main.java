@@ -27,15 +27,12 @@ import java.util.PriorityQueue;
 //    setAdList(n);// adlist(隣接リスト)を生成
 //    setPairList(n);// pairlist(ペア隣接リスト)を生成(ダイクストラ法使うとき)
 
-//    for(int i = 0; i < n; i++){}
 //    for(String key : map.keySet()){}
 
 //    System.out.println(String.format("%.1f", 21.8755));
 //    arrayPrint(a, 0);//配列出力　空白なし
-//    System.out.print();
-//    System.out.println();
 
-//テンプレーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 public class Main {
     static FastScanner sc;
     static PrintWriter pw = new PrintWriter(System.out);
@@ -49,7 +46,7 @@ public class Main {
     static ArrayList<ArrayList<Pair<Integer,Long>>> pairlist;
     static long cur[];
     static PriorityQueue<Pair<Long,Integer>> dijkpq = new PriorityQueue<Pair<Long,Integer>>();
-    public static void main(String[] args) throws Exception{//mainここからーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+    public static void main(String[] args) throws Exception{//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 //        sc = new Scanner(       new File("src/data.txt")         );
 //        sc = new Scanner(       System.in       );
         sc = new FastScanner();
@@ -57,8 +54,7 @@ public class Main {
         
         
         
-        
-    }//main終わりーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+    }//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
     
     
@@ -604,7 +600,20 @@ public class Main {
     static long lcm(long a, long b) {
         return(a * b / gcd(a, b));
     }
-
+    //aのb乗求める
+    static long power(long a, long b) {
+        long p = a;
+        long ans = 1;
+        int lim = 30;
+        for(int i=0;i<lim;i++) {
+            int wari = (1 << i);
+            if((b/wari) % 2 == 1) {
+                ans= (ans * p);
+            }
+            p = (p*p);
+        }
+        return ans;
+    }
     //aのb乗をmodで割る
     static long power(long a, long b, long m) {
         long p = a;
@@ -652,12 +661,10 @@ public class Main {
 class UF {
     int[] parent;
     int[] rank;
-
     public UF(int n) {
         // 初期化
         this.parent = new int[n];
         this.rank = new int[n];
-
         // 最初はすべてが根(or根はない)
         for (int i = 0; i < n; i++) {
             parent[i] = i;
@@ -665,10 +672,7 @@ class UF {
             rank[i] = 0;
         }
     }
-    /**
-     * 要素の根を返す。
-     * 経路圧縮付き。（1→3→2となっていて2をfindした際、1→3,2と木の深さを浅くする。）
-     */
+//     要素の根を返す 経路圧縮付き（1→3→2となっていて2をfindした際、1→3,2と木の深さを浅くする。）
     public int root(int x) {
         if (x == parent[x]) {
             return x;
@@ -678,16 +682,11 @@ class UF {
             return parent[x];
         }
     }
-
     //２つの要素が同じ集合に属するかどうかを返す
     public boolean same(int x, int y) {
         return root(x) == root(y);
     }
-
-    /**
-     * 要素xが属する集合と要素yが属する集合を連結する。
-     * 木の高さ（ランク）を気にして、低い方に高い方をつなげる。（高い方の根を全体の根とする。）
-     */
+    //要素xが属する集合と要素yが属する集合を連結する  木の高さ（ランク）を気にして、低い方に高い方をつなげる。（高い方の根を全体の根とする。）
     public void unite(int x, int y) {
         int xRoot = root(x);
         int yRoot = root(y);
@@ -740,14 +739,6 @@ class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparab
         return String.format("(%s, %s)", first, second);
     }
 }
-
-
-
-
-
-
-
-
 
 
 class FastScanner {

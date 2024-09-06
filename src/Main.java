@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.PriorityQueue;
-import java.util.Scanner;
 
 
 //    int n = Integer.parseInt(sc.next());
@@ -26,7 +25,7 @@ import java.util.Scanner;
 //    Set<Integer> set = new TreeSet<Integer>();
 
 //    setAdList(n);// adlist(隣接リスト)を生成
-//    setPairList(n);// pairlist(ペア隣接リスト)を生成
+//    setPairList(n);// pairlist(ペア隣接リスト)を生成(ダイクストラ法使うとき)
 
 //    for(int i = 0; i < n; i++){}
 //    for(String key : map.keySet()){}
@@ -42,6 +41,8 @@ public class Main {
     static PrintWriter pw = new PrintWriter(System.out);
     
     static int mod = 1000000007;
+    static int bigint = 2000000000;
+    static long biglong = 2000000000000000000L;
     static int visited[];
     static ArrayList<ArrayList<Integer>> adlist;
     static Deque<Integer> bfsq = new ArrayDeque<>();
@@ -118,12 +119,12 @@ public class Main {
         }
         visited = new int[n+1];
         cur = new long[n+1];
-        for(int i=0;i<=n;i++) cur[i] = 2000000000000000000L;
+        for(int i=0;i<=n;i++) cur[i] = biglong;
     }
     
     public static void Dijkstra(int pos) {//最初の頂点posから各頂点までの距離を求める
         cur[pos] =0;
-        dijkpq.add(new Pair(cur[pos], pos));
+        dijkpq.add(new Pair<Long, Integer>(cur[pos], pos));
         
         while(!dijkpq.isEmpty()) {
             pos = dijkpq.poll().getSecond();//優先キュー先頭の頂点をとりだす
@@ -135,7 +136,7 @@ public class Main {
                 long cost = pairlist.get(pos).get(i).getSecond();
                 if(cur[to] > cur[pos]+cost) {
                     cur[to] = cur[pos]+cost;
-                    dijkpq.add(new Pair(cur[to], to));
+                    dijkpq.add(new Pair<Long, Integer>(cur[to], to));
                 }
             }
         }

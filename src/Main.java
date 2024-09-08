@@ -22,7 +22,7 @@ import java.util.PriorityQueue;
 //    LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
 
 //    Deque<Integer> dq = new ArrayDeque<>();
-//    Set<Integer> set = new TreeSet<Integer>();
+//    TreeSet<Integer> set = new TreeSet<Integer>();
 
 //    setAdList(n);// adlist(隣接リスト)を生成
 //    setPairList(n);// pairlist(ペア隣接リスト)を生成(ダイクストラ法使うとき)
@@ -532,7 +532,8 @@ public class Main {
     
     
     //アルファベットをカウントするhashmap　小文字
-    public static LinkedHashMap<String,Integer> LowerABMap (LinkedHashMap<String,Integer> map) {
+    public static LinkedHashMap<String,Integer> LowerABMap () {
+        LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
         for(int i=0;i<26;i++) {
             char c = (char)('a'+i);
 //            System.out.println(c);
@@ -543,7 +544,8 @@ public class Main {
     
     
     //アルファベットをカウントするhashmap　大文字
-    public static LinkedHashMap<String,Integer> UpperABMap (LinkedHashMap<String,Integer> map) {
+    public static LinkedHashMap<String,Integer> UpperABMap () {
+        LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
         for(int i=0;i<26;i++) {
             char c = (char)('A'+i);
 //            System.out.println(c);

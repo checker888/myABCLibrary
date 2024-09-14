@@ -140,7 +140,7 @@ public class Main {
     //探索ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     //順列全探索ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-    private static void procPerm(int[] perm) {
+    public static void procPerm(int[] perm) {
         //ここに処理いれる
 //        System.out.println(Arrays.toString(perm));
 
@@ -148,13 +148,13 @@ public class Main {
         
     }
     
-    private static void permutation(int[] seed) {
+    public static void permutation(int[] seed) {
         int[] perm = new int[seed.length];
         boolean[] used = new boolean[seed.length];
         buildPerm(seed, perm, used, 0);
     }
 
-    private static void buildPerm(int[] seed, int[] perm, boolean[] used, int index) {
+    public static void buildPerm(int[] seed, int[] perm, boolean[] used, int index) {
         if (index == seed.length) {
             procPerm(perm);
             return;

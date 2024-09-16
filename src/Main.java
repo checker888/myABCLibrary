@@ -191,44 +191,28 @@ public class Main {
     
     //指定した値以上の値が最初に出てくるidx
     public static int lowerBound(int []input, int value) {
-        value--;
-        int idx = Arrays.binarySearch(input, value);
-        if(idx < 0) idx = ~idx;
-        else do idx++; while(idx != input.length && input[idx] == input[idx-1]) ;
+        int low = -1;
+        int high = input.length;
         
-//        else{
-//            int tg = input.get(idx);
-//            int low = idx;
-//            int high = input.size()-1;
-////            System.out.println(low+" "+high);
-//            while(low < high) {
-//                
-//                int mid = (low+high)/2;
-////                if(input.get(mid-1) == input.get(idx) && input.get(mid) != input.get(idx)) {
-////                    break;
-////                }
-//                
-//                if(input.get(mid) == tg) {
-//                    low = mid+1;
-//                }else {
-//                    high = mid;
-//                }
-//            }
-//            
-//            idx = high;
-//        }
-        
-        
-        return idx;
-        
-        
+        while(high - low > 1) {
+            int mid = (low + high)/2;
+            if(input[mid] >= value) high = mid;
+            else low = mid;
+        }
+        return high;
     }
     //指定した値より大きい値が最初に出てくるidx
     public static int upperBound(int []input, int value) {
-        int idx = Arrays.binarySearch(input, value);
-        if(idx < 0) idx = ~idx;
-        else do idx++; while(idx != input.length && input[idx] == input[idx-1]) ;
-        return idx;
+        value++;
+        int low = -1;
+        int high = input.length;
+        
+        while(high - low > 1) {
+            int mid = (low + high)/2;
+            if(input[mid] >= value) high = mid;
+            else low = mid;
+        }
+        return high;
     }
     
     //入出力系---------------------------------------------------------------------------------------------

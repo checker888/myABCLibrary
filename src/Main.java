@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.PriorityQueue;
 
 //    Deque<Integer> dq = new ArrayDeque<>();
 //    TreeSet<Integer> set = new TreeSet<Integer>();
+//    PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
 
 //    setAdList(n);// adlist(隣接リスト)を生成
 //    setPairList(n);// pairlist(ペア隣接リスト)を生成(ダイクストラ法使うとき)
@@ -118,7 +120,7 @@ public class Main {
         for(int i=0;i<=n;i++) cur[i] = biglong;
     }
     
-    public static void Dijkstra(int pos) {//最初の頂点posから各頂点までの距離を求める
+    public static void dijkstra(int pos) {//最初の頂点posから各頂点までの距離を求める
         cur[pos] =0;
         dijkpq.add(new Pair<Long, Integer>(cur[pos], pos));
         
@@ -194,7 +196,32 @@ public class Main {
         if(idx < 0) idx = ~idx;
         else do idx++; while(idx != input.length && input[idx] == input[idx-1]) ;
         
+//        else{
+//            int tg = input.get(idx);
+//            int low = idx;
+//            int high = input.size()-1;
+////            System.out.println(low+" "+high);
+//            while(low < high) {
+//                
+//                int mid = (low+high)/2;
+////                if(input.get(mid-1) == input.get(idx) && input.get(mid) != input.get(idx)) {
+////                    break;
+////                }
+//                
+//                if(input.get(mid) == tg) {
+//                    low = mid+1;
+//                }else {
+//                    high = mid;
+//                }
+//            }
+//            
+//            idx = high;
+//        }
+        
+        
         return idx;
+        
+        
     }
     //指定した値より大きい値が最初に出てくるidx
     public static int upperBound(int []input, int value) {
@@ -442,7 +469,7 @@ public class Main {
     //ーーーーーーーーーーーーーーーーーーーーーーーーーー
     
     //数値を1桁ずつ取り出してarraylistに格納（向き逆---------------------------------------------------------------------------------------------
-    public static List<Integer> CutInt(int n) {
+    public static List<Integer> cutInt(int n) {
         List<Integer> list = new ArrayList<>();
         
         while(n != 0) {
@@ -454,7 +481,7 @@ public class Main {
     }
     
     //配列の値を大きい順に並べ替える---------------------------------------------------------------------------------------------
-    public static int [] SortDesc(int []n) {
+    public static int [] sortDesc(int []n) {
         Arrays.sort(n);
         int [] m = new int[n.length];
         for(int i=0;i<n.length;i++) {
@@ -468,7 +495,7 @@ public class Main {
     
     //int、long系
     //10進数のintを2進数のStringで返す　値が65535より大きくなるときはintにできないので注意
-    public static String DtoB (int d) {//Decimal to Binary
+    public static String dtob (int d) {//Decimal to Binary
         StringBuilder b = new StringBuilder();
         if(d == 0) return "0";
         
@@ -532,7 +559,7 @@ public class Main {
     
     
     //アルファベットをカウントするhashmap　小文字
-    public static LinkedHashMap<String,Integer> LowerABMap () {
+    public static LinkedHashMap<String,Integer> lowerABMap () {
         LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
         for(int i=0;i<26;i++) {
             char c = (char)('a'+i);
@@ -544,7 +571,7 @@ public class Main {
     
     
     //アルファベットをカウントするhashmap　大文字
-    public static LinkedHashMap<String,Integer> UpperABMap () {
+    public static LinkedHashMap<String,Integer> upperABMap () {
         LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
         for(int i=0;i<26;i++) {
             char c = (char)('A'+i);

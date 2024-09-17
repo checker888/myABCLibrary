@@ -666,7 +666,21 @@ public class Main {
         return u;
     }
     
-    
+    //nの約数列挙
+    public static void printDiv(long n) {
+        Deque<Long> dq = new ArrayDeque<>();
+        for(long i=1;i*i<=n;i++) {
+            if(n%i == 0) {
+                pw.println(i);
+                dq.push(n/i);
+            }
+        }
+        while(!dq.isEmpty()) {
+            pw.println(dq.pop());
+        }
+        pw.flush();
+    }
+
 
 }
 

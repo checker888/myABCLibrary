@@ -44,6 +44,7 @@ public class Main {
     static long biglong = 2000000000000000000L;
     static int visited[];
     static ArrayList<ArrayList<Integer>> adlist;
+    static Deque<Integer> dfsq = new ArrayDeque<>();
     static Deque<Integer> bfsq = new ArrayDeque<>();
     static ArrayList<ArrayList<Pair<Integer,Long>>> pairlist;
     static long cur[];
@@ -86,6 +87,24 @@ public class Main {
                 
             }
         }
+    }
+    
+    public static void dfsQueue(int start) {
+        visited[start] = 1;
+        dfsq.add(start);
+        while(!dfsq.isEmpty()) {
+            int pos = dfsq.poll();
+            int n = adlist.get(pos).size();
+            for(int i=0;i<n;i++) {
+                int to = adlist.get(pos).get(i);
+                if(visited[to] == 0) {
+                    visited[to] = 1;
+                    //ここに処理入れる
+                    dfsq.add(to);
+                }
+            }
+        }
+
     }
     //幅優先探索
     public static void bfs(int pos) {
@@ -493,7 +512,14 @@ public class Main {
     }
     
     
-    
+    //3つの数のmax
+    public static int max3(int a, int b, int c) {
+        return Math.max(a, Math.max(b, c));
+    }
+    //3つの数のmin
+    public static int min3(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
+    }
     
     
     //double系---------------------------------------------------------------------------------------------

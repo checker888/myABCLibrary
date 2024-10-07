@@ -44,8 +44,8 @@ public class Main {
     static long biglong = 2000000000000000000L;
     static int visited[];
     static ArrayList<ArrayList<Integer>> adlist;
-    static Deque<Integer> dfsq = new ArrayDeque<>();
-    static Deque<Integer> bfsq = new ArrayDeque<>();
+    static Deque<Integer> dfsst = new ArrayDeque<>();//dfs用スタック
+    static Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
     static ArrayList<ArrayList<Pair<Integer,Long>>> pairlist;
     static long cur[];
     static PriorityQueue<Pair<Long,Integer>> dijkpq = new PriorityQueue<Pair<Long,Integer>>();
@@ -53,9 +53,6 @@ public class Main {
 //        sc = new Scanner(       new File("src/data.txt")         );
 //        sc = new Scanner(       System.in       );
         sc = new FastScanner();
-        
-        
-        
         
     }//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
@@ -89,18 +86,20 @@ public class Main {
         }
     }
     
-    public static void dfsQueue(int start) {
-        visited[start] = 1;
-        dfsq.add(start);
-        while(!dfsq.isEmpty()) {
-            int pos = dfsq.poll();
+    public static void dfsStack(int start) {
+        if(visited[start] == 0) {
+            visited[start] = 1;
+            dfsst.push(start);
+        }
+        while(!dfsst.isEmpty()) {
+            int pos = dfsst.pop();
             int n = adlist.get(pos).size();
             for(int i=0;i<n;i++) {
                 int to = adlist.get(pos).get(i);
                 if(visited[to] == 0) {
                     visited[to] = 1;
                     //ここに処理入れる
-                    dfsq.add(to);
+                    dfsst.push(to);
                 }
             }
         }
@@ -710,6 +709,15 @@ public class Main {
 
 }
 
+class Edge{
+    long u;
+    long v;
+    long cost;
+}
+
+
+
+
 
 class UF {
     int[] parent;
@@ -772,6 +780,7 @@ class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparab
         first = s;
         second = t;
     }
+    //getメソッドは、必ず代入してから使う　（if文などで比較したとき、intをInteger型で比較して失敗したりすることに気づかない）
     public S getFirst(){return first;}
     public T getSecond(){return second;}
     public boolean equals(Object another){

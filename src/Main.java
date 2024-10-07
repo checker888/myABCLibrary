@@ -43,9 +43,6 @@ public class Main {
     static int bigint = 2000000000;
     static long biglong = 2000000000000000000L;
     static int visited[];
-    static ArrayList<ArrayList<Integer>> adlist;
-    static Deque<Integer> dfsst = new ArrayDeque<>();//dfs用スタック
-    static Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
     static ArrayList<ArrayList<Pair<Integer,Long>>> pairlist;
     static long cur[];
     static PriorityQueue<Pair<Long,Integer>> dijkpq = new PriorityQueue<Pair<Long,Integer>>();
@@ -61,30 +58,6 @@ public class Main {
     
     //グラフーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     
-    //隣接リスト生成(と、visited配列の初期化
-    public static void setAdList(int n) {//adjacencyList
-        adlist = new ArrayList<ArrayList<Integer>>();   //2次元ArrayList
-        for(int i=0; i<=n; i++){
-            ArrayList<Integer> ar = new ArrayList<Integer>();   //外側のList生成
-            adlist.add(ar);   
-            
-        }
-        visited = new int[n+1];
-    }
-
-    //深さ優先探索
-    public static void dfs(int pos) {
-        visited[pos] = 1;
-        int n = adlist.get(pos).size();
-        for(int i=0;i<n;i++) {
-            int to = adlist.get(pos).get(i);
-            if(visited[to] == 0) {
-                
-                dfs(to);
-                
-            }
-        }
-    }
     public static void dfs(Graph g, int pos) {
         g.visited[pos] = 1;
         int size = g.adlist.get(pos).size();
@@ -98,26 +71,6 @@ public class Main {
         }
     }
     
-    
-    public static void dfsStack(int start) {
-        if(visited[start] == 0) {
-            visited[start] = 1;
-            dfsst.push(start);
-        }
-        while(!dfsst.isEmpty()) {
-            int pos = dfsst.pop();
-            int n = adlist.get(pos).size();
-            for(int i=0;i<n;i++) {
-                int to = adlist.get(pos).get(i);
-                if(visited[to] == 0) {
-                    visited[to] = 1;
-                    //ここに処理入れる
-                    dfsst.push(to);
-                }
-            }
-        }
-
-    }
     
     public static void dfsStack(Graph g,int start) {
         if(g.visited[start] == 0) {
@@ -141,26 +94,6 @@ public class Main {
 
     }
     
-    //幅優先探索
-    public static void bfs(int pos) {
-        
-        int nn = visited.length;
-        for(int i=0;i<nn;i++) visited[i] = -1;
-        
-        bfsq.add(pos);
-        visited[pos] = 0;
-        while(!bfsq.isEmpty()) {
-            pos = bfsq.poll();
-            int n = adlist.get(pos).size();
-            for(int i=0;i<n;i++) {
-                int to = adlist.get(pos).get(i);
-                if(visited[to] == -1) {
-                    visited[to] = visited[pos] +1;
-                    bfsq.add(to);
-                }
-            }
-        }
-    }
     
     //幅優先探索
     public static void bfs(Graph g,int pos) {

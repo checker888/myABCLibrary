@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -138,6 +139,51 @@ public class Main {
             }
         }
     }
+    
+    //クラスカル法
+    //最小全域木の構造ごと返す
+    public static WeightedGraph Kruskal(WeightedGraph g) {
+        WeightedGraph result = new WeightedGraph(g.n);
+        Collections.sort(g.edges, new Comparator<int[]>() {//コストの小さい順にソート
+            @Override
+            public int compare(int []edge1, int []edge2) {
+                return edge1[2] - edge2[2];
+            }
+        });
+        result.costsum = 0;
+        for(int [] edge : g.edges) {
+            int u = edge[0];
+            int v = edge[1];
+            long cost = edge[2];
+            if(!result.uf.same(u, v)) {
+//                result.connect(u, v, cost);//有向グラフのとき
+                result.connectMutual(u, v, cost);//無向グラフのとき (コスト総和の計算も関数内で行われてる
+            }
+        }
+        return result;
+    }
+    //最小全域木のコストの総和のみを記録する
+//    public static void Kruskal(WeightedGraph g) {
+//        Collections.sort(g.edges, new Comparator<int[]>() {//コストの小さい順にソート
+//            @Override
+//            public int compare(int []edge1, int []edge2) {
+//                return edge1[2] - edge2[2];
+//            }
+//        });
+//        UnionFind ufk = new UnionFind(g.n);
+//        g.costsum = 0;
+//        for(int [] edge : g.edges) {
+//            int u = edge[0];
+//            int v = edge[1];
+//            long cost = edge[2];
+//            if(!ufk.same(u, v)) {
+//                ufk.unite(u, v);
+//                g.costsum += cost;
+//            }
+//        }
+//    }
+    
+
     //探索ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     //順列全探索ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
@@ -514,12 +560,6 @@ public class Main {
     
     
     
-    
-    
-    
-    
-    
-    
     //String系---------------------------------------------------------------------------------------------
     //wの中から、連続するk文字の部分文字列が回文かどうか調べる
     public static boolean isPalindrome(String w[], int k) {
@@ -690,13 +730,6 @@ public class Main {
 
 }
 
-class Edge{
-    long u;
-    long v;
-    long cost;
-}
-
-
 class Graph {
     ArrayList<ArrayList<Integer>> adlist = new ArrayList<ArrayList<Integer>>();//隣接リスト
     int n;
@@ -734,13 +767,17 @@ class Graph {
 
 class WeightedGraph {
     static long biglong = 2000000000000000000L;
-    ArrayList<ArrayList<Pair<Integer,Long>>> pairadlist = new ArrayList<ArrayList<Pair<Integer,Long>>>();//pair(移動先の頂点、コスト)
+    ArrayList<ArrayList<Pair<Integer,Long>>> pairadlist;//pair(移動先の頂点、コスト)
+    List<int[]> edges ;
     int n;
     int visited[];
-    long cur[];
+    long cur[];//ダイクストラ法で使う、頂点までのコストの総和の最小値
+    long costsum;//クラスカル法で使う、すべての辺のコストの総和
     UnionFind uf;
     //コンストラクタ
     public WeightedGraph(int n) {
+        pairadlist = new ArrayList<ArrayList<Pair<Integer,Long>>>();
+        edges = new ArrayList<int[]>();
         this.n = n;
         for(int i=0; i<=n; i++){
             ArrayList<Pair<Integer,Long>> ar = new ArrayList<Pair<Integer,Long>>();
@@ -755,15 +792,23 @@ class WeightedGraph {
     
     //単一方向（uからv）に頂点を接続
     public void connect(int u, int v, long cost) {
-        this.pairadlist.get(u).add(new Pair(v,cost));
+        this.pairadlist.get(u).add(new Pair<Integer, Long>(v,cost));
+        
+        
         this.uf.unite(u, v);
+        this.costsum += cost;
+        edges.add(new int[] { u, v ,(int)cost });
     }
     
     //双方向に頂点を接続
     public void connectMutual(int u, int v, long cost){
-        this.pairadlist.get(u).add(new Pair(v, cost));
-        this.pairadlist.get(v).add(new Pair(u, cost));
+        this.pairadlist.get(u).add(new Pair<Integer, Long>(v, cost));
+        this.pairadlist.get(v).add(new Pair<Integer, Long>(u, cost));
+        
+        
         this.uf.unite(u, v);
+        this.costsum += cost;
+        edges.add(new int[] { u, v ,(int)cost });
     }
     
     //unionfindで2つの頂点が繋がっているか確認

@@ -142,7 +142,7 @@ public class Main {
     
     //クラスカル法
     //最小全域木の構造ごと返す
-    public static WeightedGraph Kruskal(WeightedGraph g) {
+    public static WeightedGraph kruskal(WeightedGraph g) {
         WeightedGraph result = new WeightedGraph(g.n);
         Collections.sort(g.edges, new Comparator<int[]>() {//コストの小さい順にソート
             @Override
@@ -163,7 +163,7 @@ public class Main {
         return result;
     }
     //最小全域木のコストの総和のみを記録する
-//    public static void Kruskal(WeightedGraph g) {
+//    public static void kruskal(WeightedGraph g) {
 //        Collections.sort(g.edges, new Comparator<int[]>() {//コストの小さい順にソート
 //            @Override
 //            public int compare(int []edge1, int []edge2) {
@@ -730,6 +730,7 @@ public class Main {
 
 }
 
+//重みなしグラフ
 class Graph {
     ArrayList<ArrayList<Integer>> adlist = new ArrayList<ArrayList<Integer>>();//隣接リスト
     int n;
@@ -765,6 +766,7 @@ class Graph {
     public void resetVisited() {this.visited = new int[n+1];}
 }
 
+//重みつきグラフ
 class WeightedGraph {
     static long biglong = 2000000000000000000L;
     ArrayList<ArrayList<Pair<Integer,Long>>> pairadlist;//pair(移動先の頂点、コスト)

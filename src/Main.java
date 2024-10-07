@@ -59,6 +59,7 @@ public class Main {
     
     //グラフーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     
+    //深さ優先探索
     public static void dfs(Graph g, int pos) {
         g.visited[pos] = 1;
         int size = g.adlist.get(pos).size();
@@ -117,6 +118,8 @@ public class Main {
         }
     }
     
+    
+    //ダイクストラ法関連
     public static void setPairList(int n) {//長さが負の辺があるとき、ダイクストラ法は正しく動かない
         pairlist = new ArrayList<ArrayList<Pair<Integer,Long>>>();
         for(int i=0; i<=n; i++){

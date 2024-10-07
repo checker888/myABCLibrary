@@ -170,7 +170,7 @@ public class Main {
 //                return edge1[2] - edge2[2];
 //            }
 //        });
-//        UnionFind ufk = new UnionFind(g.n);
+//        UnionFind ufk = new UnionFind(g.n+1);
 //        g.costsum = 0;
 //        for(int [] edge : g.edges) {
 //            int u = edge[0];

@@ -85,6 +85,19 @@ public class Main {
             }
         }
     }
+    public static void dfs(Graph g, int pos) {
+        g.visited[pos] = 1;
+        int size = g.adlist.get(pos).size();
+        for(int i=0;i<size;i++) {
+            int to = g.adlist.get(pos).get(i);
+            if(g.visited[to] == 0) {
+                
+                dfs(g, to);
+                
+            }
+        }
+    }
+    
     
     public static void dfsStack(int start) {
         if(visited[start] == 0) {
@@ -105,22 +118,66 @@ public class Main {
         }
 
     }
+    
+    public static void dfsStack(Graph g,int start) {
+        if(g.visited[start] == 0) {
+            g.visited[start] = 1;
+            g.dfsst.push(start);
+        }
+        while(!g.dfsst.isEmpty()) {
+
+            int pos = g.dfsst.pop();
+            int size = g.adlist.get(pos).size();
+            for(int i=0;i<size;i++) {
+                int to = g.adlist.get(pos).get(i);
+                if(g.visited[to] == 0) {
+                    g.visited[to] = 1;
+                    //ここに処理入れる
+                    g.dfsst.push(to);
+                    
+                }
+            }
+        }
+
+    }
+    
     //幅優先探索
     public static void bfs(int pos) {
         
         int nn = visited.length;
         for(int i=0;i<nn;i++) visited[i] = -1;
         
-        bfsq.push(pos);
+        bfsq.add(pos);
         visited[pos] = 0;
         while(!bfsq.isEmpty()) {
-            pos = bfsq.pollLast();
+            pos = bfsq.poll();
             int n = adlist.get(pos).size();
             for(int i=0;i<n;i++) {
                 int to = adlist.get(pos).get(i);
                 if(visited[to] == -1) {
                     visited[to] = visited[pos] +1;
-                    bfsq.push(to);
+                    bfsq.add(to);
+                }
+            }
+        }
+    }
+    
+    //幅優先探索
+    public static void bfs(Graph g,int pos) {
+        
+        int nn = g.visited.length;
+        for(int i=0;i<nn;i++) g.visited[i] = -1;
+        
+        g.bfsq.add(pos);
+        g.visited[pos] = 0;
+        while(!g.bfsq.isEmpty()) {
+            pos = g.bfsq.poll();
+            int size = g.adlist.get(pos).size();
+            for(int i=0;i<size;i++) {
+                int to = g.adlist.get(pos).get(i);
+                if(g.visited[to] == -1) {
+                    g.visited[to] = g.visited[pos] +1;
+                    g.bfsq.add(to);
                 }
             }
         }
@@ -705,6 +762,7 @@ public class Main {
         }
         pw.flush();
     }
+    
 
 
 }
@@ -716,13 +774,50 @@ class Edge{
 }
 
 
+class Graph {
+    ArrayList<ArrayList<Integer>> adlist = new ArrayList<ArrayList<Integer>>();//隣接リスト
+    int n;
+    int visited[];
+    Deque<Integer> dfsst = new ArrayDeque<>();//dfs用スタック
+    Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
+    UnionFind uf;
+    //コンストラクタ
+    public Graph(int n) {
+        this.n = n;
+        for(int i=0; i<=n; i++){
+            ArrayList<Integer> ar = new ArrayList<Integer>();   //外側のList生成
+            this.adlist.add(ar);   
+            
+        }
+        this.visited = new int[n+1];
+        uf = new UnionFind(n+1);
+    }
+    
+    //単一方向（uからv）に頂点を接続
+    public void connect(int u, int v) {
+        this.adlist.get(u).add(v);
+        uf.unite(u, v);
+        }
+    //双方向に頂点を接続
+    public void connectMutual(int u, int v){
+        this.adlist.get(u).add(v);
+        this.adlist.get(v).add(u);
+        uf.unite(u, v);
+    }
+    //unionfindで2つの頂点が繋がっているか確認
+    public boolean isConnect(int u, int v) {return uf.same(u, v);}
+    
+    //探索済み（または最短距離）を示すvisitedのリセット
+    public void resetVisited() {this.visited = new int[n+1];}
 
 
+}
 
-class UF {
+
+class UnionFind {
     int[] parent;
     int[] rank;
-    public UF(int n) {
+    public UnionFind(int n) {
         // 初期化
         this.parent = new int[n];
         this.rank = new int[n];

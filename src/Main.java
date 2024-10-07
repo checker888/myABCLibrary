@@ -43,10 +43,6 @@ public class Main {
     static int mod = 1000000007;
     static int bigint = 2000000000;
     static long biglong = 2000000000000000000L;
-    static int visited[];
-    static ArrayList<ArrayList<Pair<Integer,Long>>> pairlist;
-    static long cur[];
-    static PriorityQueue<Pair<Long,Integer>> dijkpq = new PriorityQueue<Pair<Long,Integer>>();
     public static void main(String[] args) throws Exception{//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 //        sc = new Scanner(       new File("src/data.txt")         );
         sc = new Scanner(       System.in       );
@@ -120,34 +116,24 @@ public class Main {
     }
     
     
-    //ダイクストラ法関連
-    public static void setPairList(int n) {//長さが負の辺があるとき、ダイクストラ法は正しく動かない
-        pairlist = new ArrayList<ArrayList<Pair<Integer,Long>>>();
-        for(int i=0; i<=n; i++){
-            ArrayList<Pair<Integer,Long>> ar = new ArrayList<Pair<Integer,Long>>();
-            pairlist.add(ar);   
-            
-        }
-        visited = new int[n+1];
-        cur = new long[n+1];
-        for(int i=0;i<=n;i++) cur[i] = biglong;
-    }
+    //ダイクストラ法
     
-    public static void dijkstra(int pos) {//最初の頂点posから各頂点までの距離を求める
-        cur[pos] =0;
-        dijkpq.add(new Pair<Long, Integer>(cur[pos], pos));
+    public static void dijkstra(WeightedGraph g,int pos) {//最初の頂点posから各頂点までの距離を求める
+        PriorityQueue<Pair<Long,Integer>> dijkpq = new PriorityQueue<Pair<Long,Integer>>();//pair(最小コスト候補、頂点)
+        g.cur[pos] =0;
+        dijkpq.add(new Pair<Long, Integer>(g.cur[pos], pos));
         
         while(!dijkpq.isEmpty()) {
             pos = dijkpq.poll().getRight();//優先キュー先頭の頂点をとりだす
-            if(visited[pos] == 1) continue;
+            if(g.visited[pos] == 1) continue;
             
-            visited[pos] = 1;
-            for(int i = 0;i < pairlist.get(pos).size();i++) {
-                int to = pairlist.get(pos).get(i).getLeft();
-                long cost = pairlist.get(pos).get(i).getRight();
-                if(cur[to] > cur[pos]+cost) {
-                    cur[to] = cur[pos]+cost;
-                    dijkpq.add(new Pair<Long, Integer>(cur[to], to));
+            g.visited[pos] = 1;
+            for(int i = 0;i < g.pairadlist.get(pos).size();i++) {
+                int to = g.pairadlist.get(pos).get(i).getLeft();
+                long cost = g.pairadlist.get(pos).get(i).getRight();
+                if(g.cur[to] > g.cur[pos]+cost) {
+                    g.cur[to] = g.cur[pos]+cost;
+                    dijkpq.add(new Pair<Long, Integer>(g.cur[to], to));
                 }
             }
         }
@@ -725,27 +711,68 @@ class Graph {
             
         }
         this.visited = new int[n+1];
-        uf = new UnionFind(n+1);
+        this.uf = new UnionFind(n+1);
     }
     
     //単一方向（uからv）に頂点を接続
     public void connect(int u, int v) {
         this.adlist.get(u).add(v);
-        uf.unite(u, v);
-        }
+        this.uf.unite(u, v);
+    }
     //双方向に頂点を接続
     public void connectMutual(int u, int v){
         this.adlist.get(u).add(v);
         this.adlist.get(v).add(u);
-        uf.unite(u, v);
+        this.uf.unite(u, v);
     }
     //unionfindで2つの頂点が繋がっているか確認
-    public boolean isConnect(int u, int v) {return uf.same(u, v);}
+    public boolean isConnect(int u, int v) {return this.uf.same(u, v);}
     
     //探索済み（または最短距離）を示すvisitedのリセット
     public void resetVisited() {this.visited = new int[n+1];}
+}
 
-
+class WeightedGraph {
+    static long biglong = 2000000000000000000L;
+    ArrayList<ArrayList<Pair<Integer,Long>>> pairadlist = new ArrayList<ArrayList<Pair<Integer,Long>>>();//pair(移動先の頂点、コスト)
+    int n;
+    int visited[];
+    long cur[];
+    UnionFind uf;
+    //コンストラクタ
+    public WeightedGraph(int n) {
+        this.n = n;
+        for(int i=0; i<=n; i++){
+            ArrayList<Pair<Integer,Long>> ar = new ArrayList<Pair<Integer,Long>>();
+            this.pairadlist.add(ar);   
+            
+        }
+        this.visited = new int[n+1];
+        this.cur = new long[n+1];
+        this.uf = new UnionFind(n+1);
+        for(int i=0;i<=n;i++) cur[i] = biglong;
+    }
+    
+    //単一方向（uからv）に頂点を接続
+    public void connect(int u, int v, long cost) {
+        this.pairadlist.get(u).add(new Pair(v,cost));
+        this.uf.unite(u, v);
+    }
+    
+    //双方向に頂点を接続
+    public void connectMutual(int u, int v, long cost){
+        this.pairadlist.get(u).add(new Pair(v, cost));
+        this.pairadlist.get(v).add(new Pair(u, cost));
+        this.uf.unite(u, v);
+    }
+    
+    //unionfindで2つの頂点が繋がっているか確認
+    public boolean isConnect(int u, int v) {return this.uf.same(u, v);}
+    
+    //探索済み（または最短距離）を示すvisitedのリセット
+    public void resetVisited() {this.visited = new int[n+1];}
+    
+    public void resetCur() {for(int i=0;i<=n;i++) cur[i] = biglong;}
 }
 
 

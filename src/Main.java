@@ -75,20 +75,21 @@ public class Main {
     
     
     public static void dfsStack(Graph g,int start) {
+        Deque<Integer> dfsst = new ArrayDeque<>();//dfs用スタック
         if(g.visited[start] == 0) {
             g.visited[start] = 1;
-            g.dfsst.push(start);
+            dfsst.push(start);
         }
-        while(!g.dfsst.isEmpty()) {
+        while(!dfsst.isEmpty()) {
 
-            int pos = g.dfsst.pop();
+            int pos = dfsst.pop();
             int size = g.adlist.get(pos).size();
             for(int i=0;i<size;i++) {
                 int to = g.adlist.get(pos).get(i);
                 if(g.visited[to] == 0) {
                     g.visited[to] = 1;
                     //ここに処理入れる
-                    g.dfsst.push(to);
+                    dfsst.push(to);
                     
                 }
             }
@@ -99,20 +100,20 @@ public class Main {
     
     //幅優先探索
     public static void bfs(Graph g,int pos) {
-        
+        Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
         int nn = g.visited.length;
         for(int i=0;i<nn;i++) g.visited[i] = -1;
         
-        g.bfsq.add(pos);
+        bfsq.add(pos);
         g.visited[pos] = 0;
-        while(!g.bfsq.isEmpty()) {
-            pos = g.bfsq.poll();
+        while(!bfsq.isEmpty()) {
+            pos = bfsq.poll();
             int size = g.adlist.get(pos).size();
             for(int i=0;i<size;i++) {
                 int to = g.adlist.get(pos).get(i);
                 if(g.visited[to] == -1) {
                     g.visited[to] = g.visited[pos] +1;
-                    g.bfsq.add(to);
+                    bfsq.add(to);
                 }
             }
         }
@@ -175,8 +176,7 @@ public class Main {
         }
 
         for (int i = 0; i < seed.length; i++) {
-            if (used[i])
-                continue;
+            if (used[i])continue;
             perm[index] = seed[i];
             used[i] = true;
             buildPerm(seed, perm, used, index + 1);
@@ -715,8 +715,6 @@ class Graph {
     ArrayList<ArrayList<Integer>> adlist = new ArrayList<ArrayList<Integer>>();//隣接リスト
     int n;
     int visited[];
-    Deque<Integer> dfsst = new ArrayDeque<>();//dfs用スタック
-    Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
     UnionFind uf;
     //コンストラクタ
     public Graph(int n) {

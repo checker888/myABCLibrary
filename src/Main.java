@@ -162,8 +162,8 @@ public class Main {
 //        arrayPrint(dp,1);
         //ワーシャルフロイド法
         for(int k=0;k<=g.n;k++){
-            for(int i=0;i<g.n;i++){
-                for(int j=0;j<g.n;j++)  dp[i][j]=Math.min(dp[i][j],dp[i][k]+dp[k][j]);
+            for(int i=0;i<=g.n;i++){
+                for(int j=0;j<=g.n;j++)  dp[i][j]=Math.min(dp[i][j],dp[i][k]+dp[k][j]);
             }
         }
         return dp;

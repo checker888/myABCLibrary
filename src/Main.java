@@ -139,6 +139,38 @@ public class Main {
             }
         }
     }
+    //ワーシャルフロイド法(dpを返す)
+    public static long[][] WarshallFloyd(WeightedGraph g){
+        long dp[][] = new long[g.n+1][g.n+1];
+        //dp初期化
+        for(int i=0;i<=g.n;i++) {
+            for(int j=0;j<=g.n;j++) {
+                if(i == j) dp[i][j] = 0;
+                else dp[i][j] = biglong/2;
+            }
+        }
+        //初期状態の設定(隣接する頂点のみのコスト)
+        for(int from=0;from<=g.n;from++) {
+            ArrayList<Pair<Integer,Long>> a = g.pairadlist.get(from);
+            for(int j=0;j<a.size();j++) {
+                Pair<Integer,Long> p = a.get(j);
+                int to = p.getLeft();
+                dp[from][to] = p.getRight();
+                
+            }
+        }
+//        arrayPrint(dp,1);
+        //ワーシャルフロイド法
+        for(int k=0;k<=g.n;k++){
+            for(int i=0;i<g.n;i++){
+                for(int j=0;j<g.n;j++)  dp[i][j]=Math.min(dp[i][j],dp[i][k]+dp[k][j]);
+            }
+        }
+        return dp;
+    }
+    
+    
+    
     
     //クラスカル法
     //最小全域木の構造ごと返す
@@ -770,6 +802,7 @@ class Graph {
 class WeightedGraph {
     static long biglong = 2000000000000000000L;
     ArrayList<ArrayList<Pair<Integer,Long>>> pairadlist;//pair(移動先の頂点、コスト)
+    
     List<int[]> edges ;
     int n;
     int visited[];

@@ -22,19 +22,14 @@ import java.util.Scanner;
 //    String w [] = s.split("");
 //    List<Integer> list = new ArrayList<Integer>();
 //    HashMap<String,Integer> map = new HashMap<String,Integer>();
-//    LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
 
 //    Deque<Integer> dq = new ArrayDeque<>();
 //    TreeSet<Integer> set = new TreeSet<Integer>();
 //    PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
 
-//    setAdList(n);// adlist(隣接リスト)を生成
-//    setPairList(n);// pairlist(ペア隣接リスト)を生成(ダイクストラ法使うとき)
-
 //    for(String key : map.keySet()){}
 
 //    System.out.println(String.format("%.1f", 21.8755));
-//    arrayPrint(a, 0);//配列出力　空白なし
 
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 public class Main {
@@ -613,7 +608,24 @@ public class Main {
         return f;
     }
     
-    
+    //1文字ならasciiコードを返す、2文字以上なら文字のハッシュを返す
+    public static int ascii(String s) {
+        if(s.length()==1) {
+            return (int)s.charAt(0);
+        }else {
+            String w[] = s.split("");
+            long ans = 0;
+            for(int i=0;i<w.length;i++) {
+                char c = w[i].charAt(0);
+                int n = c;
+                ans += n;
+                ans %= mod;
+                if(i != w.length-1)ans *= 256;
+                ans %= mod;
+            }
+            return (int)ans;
+        }
+    }
     
     //hashmap系---------------------------------------------------------------------------------------------
 

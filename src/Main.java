@@ -94,7 +94,7 @@ public class Main {
     public static void bfs(Graph g,int pos) {
         Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
         int nn = g.visited.length;
-        for(int i=0;i<nn;i++) g.visited[i] = -1;
+        for(int i=0;i<nn;i++) g.visited[i] = -1;//計算量注意！！！！！！！！！！！！
         
         bfsq.add(pos);
         g.visited[pos] = 0;

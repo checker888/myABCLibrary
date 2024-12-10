@@ -462,6 +462,18 @@ public class Main {
         pw.flush();
     }
     
+    
+    public static void arrayPrint(Object[] n, int blank) {
+        for(int x = 0;x < n.length; x++) {
+
+            pw.print(n[x]);
+            if(x != n.length -1 && blank == 1) pw.print(" ");
+
+        }
+        pw.println();
+        pw.flush();
+    }
+    
     //2次元配列の出力
     public static void arrayPrint(int[][] n, int blank) {
 //        System.out.println(n.length+" "+n[1].length);

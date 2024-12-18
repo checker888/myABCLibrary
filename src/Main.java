@@ -797,6 +797,9 @@ public class Main {
         }
         return isPrime;
     }
+    
+    public static double log2(long x) { return Math.log(x) / Math.log(2); }
+    public static double log10(long x) { return Math.log10(x); }
 
 }
 

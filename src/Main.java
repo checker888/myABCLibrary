@@ -560,21 +560,8 @@ public class Main {
     
     
     
-    //int、long系
-    //10進数のintを2進数のStringで返す　値が65535より大きくなるときはintにできないので注意
-    public static String dtob (int d) {//Decimal to Binary
-        StringBuilder b = new StringBuilder();
-        if(d == 0) return "0";
-        
-        while(d != 0) {
-            int work = d % 2;
-            b.insert(0, work);
-            d /= 2;
-        }
-        
-        return b.toString();
-    }
-    
+  //int、long系
+
     
     //3つの数のmax
     public static int max3(int a, int b, int c) {
@@ -800,7 +787,35 @@ public class Main {
     
     public static double log2(long x) { return Math.log(x) / Math.log(2); }
     public static double log10(long x) { return Math.log10(x); }
+    
+    //10進数のdをp進数のStringで返す　
+    public static String decimalConversion (long d, int p) {
+        StringBuilder b = new StringBuilder();
+        if(d == 0) return "0";
 
+        while(d != 0) {
+            long work = d % p;
+            b.insert(0, work);
+            d /= p;
+        }
+
+        return b.toString();
+    }
+  //from進数の数であるnをto進数に変換
+    public static String baseConversion(String n, int from, int to) {
+        String nw[] = n.split("");
+        long p = 1;
+        long sum10 = 0;
+        //10進数に変換
+        for(int i=nw.length-1; i>=0; i--) {
+            long a = Long.valueOf(nw[i]) * p;
+            sum10 += a;
+            p *= from;
+        }
+
+        String cnvSum = decimalConversion(sum10, to);
+        return cnvSum;
+    }
 }
 
 //重みなしグラフ

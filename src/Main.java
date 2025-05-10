@@ -28,7 +28,7 @@ import java.util.Scanner;
 //    PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
 
 //    for(String key : map.keySet()){}
-
+//    Arrays.sort(aw,Collections.reverseOrder());
 //    System.out.println(String.format("%.1f", 21.8755));
 
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -110,8 +110,29 @@ public class Main {
             }
         }
     }
-    
-    
+    //始点が複数あるときに使う多視点BFS
+    public static void multi_source_bfs(Graph g,Deque<Integer> que) {
+        Deque<Integer> bfsq = new ArrayDeque<>();//bfs用キュー
+        int nn = g.visited.length;
+        for(int i=0;i<nn;i++) g.visited[i] = -1;//計算量注意！！！！！！！！！！！！
+        while(!que.isEmpty()) {
+            int pos = que.poll();
+            bfsq.add(pos);
+            g.visited[pos] = 0;
+        }
+
+        while(!bfsq.isEmpty()) {
+            int pos = bfsq.poll();
+            int size = g.adlist.get(pos).size();
+            for(int i=0;i<size;i++) {
+                int to = g.adlist.get(pos).get(i);
+                if(g.visited[to] == -1) {
+                    g.visited[to] = g.visited[pos] +1;
+                    bfsq.add(to);
+                }
+            }
+        }
+    }
     //ダイクストラ法
     
     public static void dijkstra(WeightedGraph g,int pos) {//最初の頂点posから各頂点までの距離を求める

@@ -186,9 +186,6 @@ public class Main {
         return dp;
     }
     
-    
-    
-    
     //クラスカル法
     //最小全域木の構造ごと返す
     public static WeightedGraph kruskal(WeightedGraph g) {
@@ -241,9 +238,6 @@ public class Main {
     public static void procPerm(int[] perm) {
         //ここに処理いれる
 //        System.out.println(Arrays.toString(perm));
-
-        
-        
     }
     
     public static void permutation(int[] seed) {
@@ -271,17 +265,15 @@ public class Main {
     //bit全探索のやり方思い出す用
     public static void bitSearch(int n) {
         for (int bit = 0; bit < (1 << n); bit++) {
-            
             for (int i = 0; i < n; i++) {
-                System.out.println(bit +" "+ (1 << i)+" "+ (bit & (1 << i)));
-                
+//                System.out.println(bit +" "+ (1 << i)+" "+ (bit & (1 << i)));
                 if((bit & (1 << i)) != 0) {
-                    //ここに処理いれる
+                    
                 }
-
             }
-
         }
+        
+        
     }
     
     //指定した値以上の値が最初に出てくるidx
@@ -309,7 +301,10 @@ public class Main {
         }
         return high;
     }
-    
+    //valueの個数取得
+    public static int count(int[] input, int value) {
+        return upperBound(input, value) - lowerBound(input, value);
+    }
     //入出力系---------------------------------------------------------------------------------------------
     //1次元配列の入力---------------------------------------------------------------------------------------------
     public static int [] arrayInputInt(int n) {
@@ -580,23 +575,11 @@ public class Main {
         }
         return m;
     }
-    
-    
-    
-    
   //int、long系
-
-    
-    //3つの数のmax
-    public static int max3(int a, int b, int c) {
-        return Math.max(a, Math.max(b, c));
-    }
-    //3つの数のmin
-    public static int min3(int a, int b, int c) {
-        return Math.min(a, Math.min(b, c));
-    }
-    
-    
+    public static int max3(int a, int b, int c) {return Math.max(a, Math.max(b, c));}
+    public static int min3(int a, int b, int c) {return Math.min(a, Math.min(b, c));}
+    public static int max4(int a, int b, int c,int d) {return Math.max(a, Math.max(b, Math.max(c, d)));}
+    public static int min4(int a, int b, int c,int d) {return Math.min(a, Math.min(b, Math.min(c, d)));}
     //double系---------------------------------------------------------------------------------------------
     
   //少数点のf桁までを出力（f+1桁を四捨五入)
@@ -605,10 +588,6 @@ public class Main {
         String s = "%."+i.toString()+"f";
         System.out.println(String.format(s, n));
     }
-    
-    
-    
-    
     
     //String系---------------------------------------------------------------------------------------------
     //wの中から、連続するk文字の部分文字列が回文かどうか調べる
@@ -630,55 +609,7 @@ public class Main {
         }
         return f;
     }
-    
-    //1文字ならasciiコードを返す、2文字以上なら文字のハッシュを返す
-    public static int ascii(String s) {
-        if(s.length()==1) {
-            return (int)s.charAt(0);
-        }else {
-            String w[] = s.split("");
-            long ans = 0;
-            for(int i=0;i<w.length;i++) {
-                char c = w[i].charAt(0);
-                int n = c;
-                ans += n;
-                ans %= mod;
-                if(i != w.length-1)ans *= 256;
-                ans %= mod;
-            }
-            return (int)ans;
-        }
-    }
-    
-    //hashmap系---------------------------------------------------------------------------------------------
 
-    
-    
-    //アルファベットをカウントするhashmap　小文字
-    public static LinkedHashMap<String,Integer> lowerABMap () {
-        LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
-        for(int i=0;i<26;i++) {
-            char c = (char)('a'+i);
-//            System.out.println(c);
-            map.put(String.valueOf(c), 0);
-        }
-        return map;
-    }
-    
-    
-    //アルファベットをカウントするhashmap　大文字
-    public static LinkedHashMap<String,Integer> upperABMap () {
-        LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
-        for(int i=0;i<26;i++) {
-            char c = (char)('A'+i);
-//            System.out.println(c);
-            map.put(String.valueOf(c), 0);
-        }
-        return map;
-    }
-    
-    
-    
     //数学系ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     //階乗(!n)
     static long factorial(int n) {
@@ -978,3 +909,33 @@ class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparab
   }
 
 }
+
+
+
+
+
+
+
+//配列の最大・最小値取得
+//Arrays.stream([配列名]).min().getAsInt()
+//Arrays.stream([配列名]).max().getAsInt()
+
+
+
+//grid 上下左右・斜めの接続
+//for(int i=0;i<h;i++) {
+//    for(int j=0;j<w;j++) {
+//        int num = (i*w)+j;
+//        if(ss[i][j].equals("#")) {
+//            if(i != 0 && ss[i-1][j].equals("#")) g.connect(num, num-w);
+//            if(i != h-1 && ss[i+1][j].equals("#"))g.connect(num, num+w);
+//            if(j != 0 && ss[i][j-1].equals("#"))g.connect(num, num-1);
+//            if(j != w-1 && ss[i][j+1].equals("#"))g.connect(num, num+1);
+//        
+//            if(i != 0 && j != 0 && ss[i-1][j-1].equals("#")) g.connect(num, num-w-1);
+//            if(i != 0 && j != w-1 && ss[i-1][j+1].equals("#")) g.connect(num, num-w+1);
+//            if(i != h-1 && j != 0 && ss[i+1][j-1].equals("#")) g.connect(num, num+w-1);
+//            if(i != h-1 && j != w-1 && ss[i+1][j+1].equals("#")) g.connect(num, num+w+1);
+//         }
+//    }
+//}

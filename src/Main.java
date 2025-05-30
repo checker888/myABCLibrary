@@ -656,6 +656,17 @@ public class Main {
     static long lcm(long a, long b) {
         return(a * b / gcd(a, b));
     }
+    //正確な平方根をとる
+    public static long sqrt(long n) {
+        n = (long)Math.sqrt(n);
+        for(long i = n-10;i <= n+10;i++) {
+            if(i*i<=n && (i+1)*(i+1)>n) {
+                n = i;
+                break;
+            }
+        }
+        return n;
+    }
     //aのb乗求める
     static long power(long a, long b) {
         long ans = 1;

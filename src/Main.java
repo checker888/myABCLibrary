@@ -821,7 +821,7 @@ class WeightedGraph {
   //コンストラクタ
   public WeightedGraph(int n) {
       pairadlist = new ArrayList<ArrayList<Edge>>();
-      edges = new ArrayList<int[]>();
+//      edges = new ArrayList<int[]>();//クラスカル法のときのみ
       this.n = n;
       for(int i=0; i<=n; i++)this.pairadlist.add(new ArrayList<Edge>());
       this.visited = new int[n+1];
@@ -832,7 +832,7 @@ class WeightedGraph {
   public void connect(int u, int v, long cost) {
       this.pairadlist.get(u).add(new Edge(v,cost));
       this.costsum += cost;
-      edges.add(new int[] { u, v ,(int)cost });
+//      edges.add(new int[] { u, v ,(int)cost });//クラスカル法のときのみ
   }
   
   //双方向に頂点を接続
@@ -840,7 +840,7 @@ class WeightedGraph {
       this.pairadlist.get(u).add(new Edge(v, cost));
       this.pairadlist.get(v).add(new Edge(u, cost));
       this.costsum += cost;
-      edges.add(new int[] { u, v ,(int)cost });
+//      edges.add(new int[] { u, v ,(int)cost });//クラスカル法のときのみ
   }
   //unionfindで2つの頂点が繋がっているか確認
 //  public boolean isConnect(int u, int v) {return this.uf.same(u, v);}

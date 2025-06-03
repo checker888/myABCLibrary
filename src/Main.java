@@ -424,7 +424,20 @@ public class Main {
     }
     
     //1次元配列の出力(blank  0:間の空白なし　1:あり)---------------------------------------------------------------------------------------------
-
+    public static void arrayPrint(int[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(long[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(double[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(String[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(boolean[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(Object[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(int[][] n) {arrayPrint(n,1);}
+    public static void arrayPrint(long[][] n) {arrayPrint(n,1);}
+    public static void arrayPrint(double[][] n) {arrayPrint(n,1);}
+    public static void arrayPrint(String[][] n) {arrayPrint(n,1);}
+    public static void arrayPrint(boolean[][] n) {arrayPrint(n,1);}
+    public static void arrayPrint(Object[][] n) {arrayPrint(n,1);}
+    
+    
     public static void arrayPrint(int[] n, int blank) {
         for(int x = 0;x < n.length; x++) {
             

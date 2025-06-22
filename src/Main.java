@@ -935,7 +935,28 @@ class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparab
 }
 
 
+class Triple<S extends Comparable<S>, T extends Comparable<T>, U extends Comparable<U>> implements Comparable<Triple<S,T,U>>{//ソートできるようにComparable使う
+    S left;
+    T mid;
+    U right;
+    public Triple(S s, T t, U u){
+        left = s;
+        mid = t;
+        right = u;
+    }
+    //getメソッドは、必ず代入してから使う　（if文などで比較したとき、intをInteger型で比較して失敗したりすることに気づかない）
+    public S getLeft(){return left;}
+    public T getMid(){return mid;}
+    public U getRight() {return right;}
+    
+    public int compareTo(Triple<S,T,U> another){
+        java.util.Comparator<Triple<S,T,U>> comp1 = java.util.Comparator.comparing(Triple::getLeft);
+        java.util.Comparator<Triple<S,T,U>> comp2 = comp1.thenComparing(Triple::getMid);
+        java.util.Comparator<Triple<S,T,U>> comp3 = comp2.thenComparing(Triple::getRight);
+        return comp3.compare(this, another);
+    }
 
+  }
 
 
 

@@ -915,23 +915,42 @@ class Edge {
 }
 
 class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparable<Pair<S,T>>{//ソートできるようにComparable使う
-  S left;
-  T right;
+    S left;
+    T right;
 
-  public Pair(S s, T t){
-      left = s;
-      right = t;
-  }
-  //getメソッドは、必ず代入してから使う　（if文などで比較したとき、intをInteger型で比較して失敗したりすることに気づかない）
-  public S getLeft(){return left;}
-  public T getRight(){return right;}
+    public Pair(S s, T t){
+        left = s;
+        right = t;
+    }
+    //getメソッドは、必ず代入してから使う　（if文などで比較したとき、intをInteger型で比較して失敗したりすることに気づかない）
+    public S getLeft(){return left;}
+    public T getRight(){return right;}
 
-  public int compareTo(Pair<S,T> another){
-      java.util.Comparator<Pair<S,T>> comp1 = java.util.Comparator.comparing(Pair::getLeft);
-      java.util.Comparator<Pair<S,T>> comp2 = comp1.thenComparing(Pair::getRight);
-      return comp2.compare(this, another);
-  }
+    public int compareTo(Pair<S,T> another){
+        java.util.Comparator<Pair<S,T>> comp1 = java.util.Comparator.comparing(Pair::getLeft);
+        java.util.Comparator<Pair<S,T>> comp2 = comp1.thenComparing(Pair::getRight);
+        return comp2.compare(this, another);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
+        Pair<S, T> another = (Pair<S, T>) obj;
+        return Objects.equals(this.getLeft(), another.getLeft())
+                && Objects.equals(this.getRight(), another.getRight());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int h1 = left.hashCode();
+        int h2 = right.hashCode();
+        String connected = String.valueOf(h1) + ' ' + String.valueOf(h2);
+        return connected.hashCode();
+    }
 }
 
 
@@ -955,8 +974,81 @@ class Triple<S extends Comparable<S>, T extends Comparable<T>, U extends Compara
         java.util.Comparator<Triple<S,T,U>> comp3 = comp2.thenComparing(Triple::getRight);
         return comp3.compare(this, another);
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
 
-  }
+        Triple<S, T, U> another = (Triple<S, T, U>) obj;
+        return Objects.equals(this.getLeft(), another.getLeft())
+                && Objects.equals(this.getRight(), another.getRight())
+                    && Objects.equals(this.getMid(), another.getMid());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int h1 = left.hashCode();
+        int h2 = right.hashCode();
+        int h3 = mid.hashCode();
+        String connected = String.valueOf(h1) + ' ' + String.valueOf(h2) + ' ' + String.valueOf(h3);
+        return connected.hashCode();
+    }
+
+}
+
+class Four<S extends Comparable<S>, T extends Comparable<T>, U extends Comparable<U>, V extends Comparable<V>> implements Comparable<Four<S,T,U,V>>{//ソートできるようにComparable使う
+    S left;
+    T lmid;
+    U rmid;
+    V right;
+    public Four(S s, T t, U u,V v){
+        left = s;
+        lmid = t;
+        rmid = u;
+        right = v;
+    }
+    //getメソッドは、必ず代入してから使う　（if文などで比較したとき、intをInteger型で比較して失敗したりすることに気づかない）
+    public S getLeft(){return left;}
+    public T getLMid(){return lmid;}
+    public U getRMid() {return rmid;}
+    public V getRight() {return right;}
+    
+    public int compareTo(Four<S,T,U,V> another){
+        java.util.Comparator<Four<S,T,U,V>> comp1 = java.util.Comparator.comparing(Four::getLeft);
+        java.util.Comparator<Four<S,T,U,V>> comp2 = comp1.thenComparing(Four::getLMid);
+        java.util.Comparator<Four<S,T,U,V>> comp3 = comp2.thenComparing(Four::getRMid);
+        java.util.Comparator<Four<S,T,U,V>> comp4 = comp3.thenComparing(Four::getRight);
+        return comp4.compare(this, another);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        Four<S, T, U, V> another = (Four<S, T, U, V>) obj;
+        return Objects.equals(this.getLeft(), another.getLeft())
+                && Objects.equals(this.getRight(), another.getRight())
+                    && Objects.equals(this.getLMid(), another.getLMid())
+                        && Objects.equals(this.getRMid(), another.getRMid());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int h1 = left.hashCode();
+        int h2 = right.hashCode();
+        int h3 = lmid.hashCode();
+        int h4 = rmid.hashCode();
+        String connected = String.valueOf(h1) + ' ' + String.valueOf(h2) + ' ' + String.valueOf(h3) + ' ' + String.valueOf(h4);
+        return connected.hashCode();
+    }
+
+}
 
 
 

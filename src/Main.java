@@ -670,15 +670,11 @@ public class Main {
         return(a * b / gcd(a, b));
     }
     //正確な平方根をとる
-    public static long sqrt(long n) {
-        n = (long)Math.sqrt(n);
-        for(long i = n-10;i <= n+10;i++) {
-            if(i*i<=n && (i+1)*(i+1)>n) {
-                n = i;
-                break;
-            }
-        }
-        return n;
+    public static long sqrt(long x) {
+        long r = (long)Math.sqrt(x);
+        while (r * r > x) r--;
+        while ((r + 1) * (r + 1) <= x) r++;
+        return (r * r == x) ? r : -1;
     }
     //aのb乗求める
     static long power(long a, long b) {

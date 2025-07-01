@@ -427,13 +427,13 @@ public class Main {
     public static void arrayPrint(int[] n) {arrayPrint(n,1);}
     public static void arrayPrint(long[] n) {arrayPrint(n,1);}
     public static void arrayPrint(double[] n) {arrayPrint(n,1);}
-    public static void arrayPrint(String[] n) {arrayPrint(n,1);}
+    public static void arrayPrint(String[] n) {arrayPrint(n,0);}
     public static void arrayPrint(boolean[] n) {arrayPrint(n,1);}
     public static void arrayPrint(Object[] n) {arrayPrint(n,1);}
     public static void arrayPrint(int[][] n) {arrayPrint(n,1);}
     public static void arrayPrint(long[][] n) {arrayPrint(n,1);}
     public static void arrayPrint(double[][] n) {arrayPrint(n,1);}
-    public static void arrayPrint(String[][] n) {arrayPrint(n,1);}
+    public static void arrayPrint(String[][] n) {arrayPrint(n,0);}
     public static void arrayPrint(boolean[][] n) {arrayPrint(n,1);}
     public static void arrayPrint(Object[][] n) {arrayPrint(n,1);}
     
@@ -910,6 +910,7 @@ class Edge {
   }
 }
 
+
 class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparable<Pair<S,T>>{//ソートできるようにComparable使う
     S left;
     T right;
@@ -946,6 +947,10 @@ class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparab
         int h2 = right.hashCode();
         String connected = String.valueOf(h1) + ' ' + String.valueOf(h2);
         return connected.hashCode();
+    }
+    @Override
+    public String toString() {
+        return left+" "+right;
     }
 }
 
@@ -991,6 +996,11 @@ class Triple<S extends Comparable<S>, T extends Comparable<T>, U extends Compara
         int h3 = mid.hashCode();
         String connected = String.valueOf(h1) + ' ' + String.valueOf(h2) + ' ' + String.valueOf(h3);
         return connected.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return left+" "+mid+" "+right;
     }
 
 }
@@ -1043,8 +1053,13 @@ class Four<S extends Comparable<S>, T extends Comparable<T>, U extends Comparabl
         String connected = String.valueOf(h1) + ' ' + String.valueOf(h2) + ' ' + String.valueOf(h3) + ' ' + String.valueOf(h4);
         return connected.hashCode();
     }
-
+    
+    @Override
+    public String toString() {
+        return left+" "+lmid+" "+rmid+" "+right;
+    }
 }
+
 
 
 
@@ -1059,16 +1074,16 @@ class Four<S extends Comparable<S>, T extends Comparable<T>, U extends Comparabl
 //for(int i=0;i<h;i++) {
 //    for(int j=0;j<w;j++) {
 //        int num = (i*w)+j;
-//        if(ss[i][j].equals("#")) {
-//            if(i != 0 && ss[i-1][j].equals("#")) g.connect(num, num-w);
-//            if(i != h-1 && ss[i+1][j].equals("#"))g.connect(num, num+w);
-//            if(j != 0 && ss[i][j-1].equals("#"))g.connect(num, num-1);
-//            if(j != w-1 && ss[i][j+1].equals("#"))g.connect(num, num+1);
+//        if(grid[i][j].equals("#")) {
+//            if(i != 0 && grid[i-1][j].equals("#")) g.connect(num, num-w);
+//            if(i != h-1 && grid[i+1][j].equals("#"))g.connect(num, num+w);
+//            if(j != 0 && grid[i][j-1].equals("#"))g.connect(num, num-1);
+//            if(j != w-1 && grid[i][j+1].equals("#"))g.connect(num, num+1);
 //        
-//            if(i != 0 && j != 0 && ss[i-1][j-1].equals("#")) g.connect(num, num-w-1);
-//            if(i != 0 && j != w-1 && ss[i-1][j+1].equals("#")) g.connect(num, num-w+1);
-//            if(i != h-1 && j != 0 && ss[i+1][j-1].equals("#")) g.connect(num, num+w-1);
-//            if(i != h-1 && j != w-1 && ss[i+1][j+1].equals("#")) g.connect(num, num+w+1);
+//            if(i != 0 && j != 0 && grid[i-1][j-1].equals("#")) g.connect(num, num-w-1);
+//            if(i != 0 && j != w-1 && grid[i-1][j+1].equals("#")) g.connect(num, num-w+1);
+//            if(i != h-1 && j != 0 && grid[i+1][j-1].equals("#")) g.connect(num, num+w-1);
+//            if(i != h-1 && j != w-1 && grid[i+1][j+1].equals("#")) g.connect(num, num+w+1);
 //         }
 //    }
 //}

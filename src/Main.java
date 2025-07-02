@@ -935,6 +935,7 @@ class Pair<S extends Comparable<S>, T extends Comparable<T>> implements Comparab
             return false;
         }
 
+        @SuppressWarnings("unchecked")
         Pair<S, T> another = (Pair<S, T>) obj;
         return Objects.equals(this.getLeft(), another.getLeft())
                 && Objects.equals(this.getRight(), another.getRight());
@@ -982,6 +983,7 @@ class Triple<S extends Comparable<S>, T extends Comparable<T>, U extends Compara
             return false;
         }
 
+        @SuppressWarnings("unchecked")
         Triple<S, T, U> another = (Triple<S, T, U>) obj;
         return Objects.equals(this.getLeft(), another.getLeft())
                 && Objects.equals(this.getRight(), another.getRight())
@@ -1036,6 +1038,7 @@ class Four<S extends Comparable<S>, T extends Comparable<T>, U extends Comparabl
             return false;
         }
 
+        @SuppressWarnings("unchecked")
         Four<S, T, U, V> another = (Four<S, T, U, V>) obj;
         return Objects.equals(this.getLeft(), another.getLeft())
                 && Objects.equals(this.getRight(), another.getRight())

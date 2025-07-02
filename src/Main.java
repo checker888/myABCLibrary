@@ -742,7 +742,7 @@ public class Main {
     
     public static boolean[] sieveOfEratosthenes(int n) {
         boolean[] isPrime = new boolean[n+1];
-        for(int i=0;i<n;i++)isPrime[i] = true;
+        for(int i=0;i<=n;i++)isPrime[i] = true;
         isPrime[0] = isPrime[1] = false;
         
         for(int p=2;p<=n;p++) {

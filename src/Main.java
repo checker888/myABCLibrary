@@ -30,6 +30,7 @@ import java.util.Scanner;
 //    for(String key : map.keySet()){}
 //    Arrays.sort(aw,Collections.reverseOrder());
 //    System.out.println(String.format("%.1f", 21.8755));
+//    int bitCount = Integer.bitCount(num);
 
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 public class Main {

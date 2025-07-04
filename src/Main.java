@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-
+//import java.io.File;
 
 //    int n = Integer.parseInt(sc.next());
 //    int [] a = arrayInputInt(n);
@@ -41,7 +41,7 @@ public class Main {
     static int bigint = 2000000000;
     static long biglong = 2000000000000000000L;
     public static void main(String[] args) throws Exception{//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-//        sc = new Scanner(       new File("src/data.txt")         );
+//        sc = new Scanner(       new File("src/testcase.txt")         );
         sc = new Scanner(       System.in       );
 //        sc = new FastScanner();
         

@@ -17,11 +17,6 @@ public class MakeTestcase {
         setup();
         
         
-        
-        
-        
-        
-        
         pw.close();//必須
     }
     
@@ -49,13 +44,8 @@ public class MakeTestcase {
     public static String randomizeString(String st) {return randomizeString(1,st);}
     
     //low <= x <= high の範囲の整数xを生成
-    public static int randomizeInt(int low, int high) {
-        return low + random.nextInt((high - low) + 1);
-    }
-    
-    public static long randomizeLong(long low, long high) {
-        return low + random.nextLong((high - low) + 1);
-    }
+    public static int randomizeInt(int low, int high) {return low + random.nextInt((high - low) + 1);}
+    public static long randomizeLong(long low, long high) {return low + random.nextLong((high - low) + 1);}
     
     //low <= x <= high の範囲の実数xを生成(少数位:digit)
     public static double randomizeDouble(double low, double high, int digit) {

@@ -13,6 +13,8 @@ public class MakeTestcase {
     static String lowercharacters = "abcdefghijklmnopqrstuvwxyz";
     static String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static String numbers = "1234567890";
+    static int bigint = 2000000000;
+    static long biglong = 2000000000000000000L;
     public static void main(String[] args) {
         setup();
         

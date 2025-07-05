@@ -31,7 +31,7 @@ import java.util.Scanner;
 //    Arrays.sort(aw,Collections.reverseOrder());
 //    System.out.println(String.format("%.1f", 21.8755));
 //    int bitCount = Integer.bitCount(num);
-
+//    Arrays.sort(bx, (a, b) -> Long.compare(Math.abs(a), Math.abs(b)));
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 public class Main {
     static Scanner sc;

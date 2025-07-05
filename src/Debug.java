@@ -1,6 +1,6 @@
 public class Debug {
     public static void main(String[] args) throws Exception{
-        doMain();
+        doMain(10);
     }
     
     
@@ -13,7 +13,7 @@ public class Debug {
     
     
     public static void doMain(int trials) throws Exception{
-        for(int t=0;t<trials;t++) {
+        for(int t=1;t<=trials;t++) {
             MakeTestcase.main(new String[0]);
             long start = System.currentTimeMillis();
             Main.main(new String[0]);

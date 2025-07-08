@@ -1,12 +1,16 @@
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
 public class MakeTestcase {
     static FileWriter file;
     static PrintWriter pw;
+    static String sourceFile = "src/testcase.txt";
     
     static Random random = new Random();
     static String uppercharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -15,24 +19,36 @@ public class MakeTestcase {
     static String numbers = "1234567890";
     static int bigint = 2000000000;
     static long biglong = 2000000000000000000L;
-    public static void main(String[] args) {
+    
+    public static void main(String[] args) throws Exception{
         setup();
         
         
+        printTestcase();
         pw.close();//必須
     }
     
     
     public static void setup() {
         try {
-            file = new FileWriter("src/testcase.txt");
+            file = new FileWriter(sourceFile);
             pw = new PrintWriter(new BufferedWriter(file));
         }catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
         }
     }
-    
+    public static void printTestcase() throws Exception{
+        Scanner sc = new Scanner(new File(sourceFile));
+        PrintWriter tcpw = new PrintWriter(System.out);
+        tcpw.println("Testcase-----------------------------------------");
+        while(sc.hasNext()) {
+            tcpw.println(sc.nextLine());
+        }
+        tcpw.println("--------------------------------------------------");
+        tcpw.flush();
+        sc.close();
+    }
     //文字列stの中から選んだn文字のランダムな文字列を生成
     public static String randomizeString(int n, String st) {
         StringBuilder randomStringBuilder = new StringBuilder(n);

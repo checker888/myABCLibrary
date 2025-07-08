@@ -271,9 +271,7 @@ public class Main {
         }
         return high;
     }
-    //指定した値より大きい値が最初に出てくるidx
-    public static int upperBound(int []input, int value) {
-        value++;
+    public static int lowerBound(long []input, long value) {
         int low = -1;
         int high = input.length;
         
@@ -284,10 +282,12 @@ public class Main {
         }
         return high;
     }
+    //指定した値より大きい値が最初に出てくるidx
+    public static int upperBound(int []input, int value) {return lowerBound(input, value+1);}
+    public static int upperBound(long []input, long value) {return lowerBound(input, value+1);}
     //valueの個数取得
-    public static int count(int[] input, int value) {
-        return upperBound(input, value) - lowerBound(input, value);
-    }
+    public static int count(int[] input, int value) {return upperBound(input, value) - lowerBound(input, value);}
+    public static int count(long[] input, long value) {return upperBound(input, value) - lowerBound(input, value);}
     //入出力系---------------------------------------------------------------------------------------------
     //1次元配列の入力---------------------------------------------------------------------------------------------
     public static int [] arrayInputInt(int n) {

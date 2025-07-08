@@ -572,10 +572,24 @@ public class Main {
         return m;
     }
   //int、long系
+    public static int max(int a,int b) {return Math.max(a,b);}
+    public static long max(long a,long b) {return Math.max(a,b);}
+    public static double max(double a,double b) {return Math.max(a,b);}
+    public static int min(int a,int b) {return Math.min(a,b);}
+    public static long min(long a,long b) {return Math.min(a,b);}
+    public static double min(double a,double b) {return Math.min(a,b);}
     public static int max3(int a, int b, int c) {return Math.max(a, Math.max(b, c));}
+    public static long max3(long a, long b, long c) {return Math.max(a, Math.max(b, c));}
+    public static double max3(double a, double b, double c) {return Math.max(a, Math.max(b, c));}
     public static int min3(int a, int b, int c) {return Math.min(a, Math.min(b, c));}
+    public static long min3(long a, long b, long c) {return Math.min(a, Math.min(b, c));}
+    public static double min3(double a, double b, double c) {return Math.min(a, Math.min(b, c));}
     public static int max4(int a, int b, int c,int d) {return Math.max(a, Math.max(b, Math.max(c, d)));}
+    public static long max4(long a, long b, long c,long d) {return Math.max(a, Math.max(b, Math.max(c, d)));}
+    public static double max4(double a, double b, double c,double d) {return Math.max(a, Math.max(b, Math.max(c, d)));}
     public static int min4(int a, int b, int c,int d) {return Math.min(a, Math.min(b, Math.min(c, d)));}
+    public static long min4(long a, long b, long c,long d) {return Math.min(a, Math.min(b, Math.min(c, d)));}
+    public static double min4(double a, double b, double c,double d) {return Math.min(a, Math.min(b, Math.min(c, d)));}
     //double系---------------------------------------------------------------------------------------------
     
   //少数点のf桁までを出力（f+1桁を四捨五入)

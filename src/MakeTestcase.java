@@ -24,8 +24,9 @@ public class MakeTestcase {
         setup();
         
         
-        printTestcase();
+        
         pw.close();//必須
+        printTestcase();
     }
     
     

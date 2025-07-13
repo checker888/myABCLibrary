@@ -610,7 +610,7 @@ public class Main {
         //奇数桁の場合は revertedHalf / 10 で中央の桁を無視する
         return x == revertedHalf || x == revertedHalf / 10;
     }
-    public static boolean isPalindromeLong(long x) {
+    public static boolean isPalindrome(long x) {
         if (x < 0 || (x % 10 == 0 && x != 0)) return false;
 
         long revertedHalf = 0;
@@ -620,8 +620,18 @@ public class Main {
         }
         return x == revertedHalf || x == revertedHalf / 10;
     }
+    //↑と計算量は実質同じ
+    public static boolean isPalindromeString(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
     //wの中から、連続するk文字の部分文字列が回文かどうか調べる
-    public static boolean isPalindrome(String[] w, int k) {
+    public static boolean isPalindromeSubs(String[] w, int k) {
         int n = w.length;
         for (int i = 0; i <= n - k; i++) {
             boolean isPalin = true;
@@ -660,15 +670,15 @@ public class Main {
     
     //素数判定( O(ルートn) )
     static boolean isPrime(int n) {
-        if(n != 2) {
-            if(n % 2 == 0) return false;
-        }
-        for(int i = 3; i * i <= n; i+=2) {
-            if(n % i == 0) return false;
+        if (n <= 1) return false;         // 0, 1 は素数でない
+        if (n == 2) return true;          // 2 は素数
+        if (n % 2 == 0) return false;     // 2以外の偶数は合成数
+
+        for (int i = 3; i * i <= n; i += 2) {
+            if (n % i == 0) return false;
         }
         return true;
     }
-    
     //最大公約数求める
     static long gcd(long a, long b) {
         while (b != 0) {

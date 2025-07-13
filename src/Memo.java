@@ -18,6 +18,7 @@
 
 
 
+//    Long.toString(i,A); A進数の文字列に変換
 
 
 

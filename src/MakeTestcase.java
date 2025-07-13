@@ -26,7 +26,7 @@ public class MakeTestcase {
         
         
         pw.close();//必須
-        printTestcase();
+//        printTestcase();
     }
     
     

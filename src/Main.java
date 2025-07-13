@@ -599,25 +599,41 @@ public class Main {
         System.out.println(String.format(s, n));
     }
     
-    //String系---------------------------------------------------------------------------------------------
+    public static boolean isPalindrome(int x) {
+        //負の数や末尾が0で0以外の数は回文になり得ない
+        if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+        int revertedHalf = 0;
+        while (x > revertedHalf) {
+            revertedHalf = revertedHalf * 10 + x % 10;
+            x /= 10;
+        }
+        //奇数桁の場合は revertedHalf / 10 で中央の桁を無視する
+        return x == revertedHalf || x == revertedHalf / 10;
+    }
+    public static boolean isPalindromeLong(long x) {
+        if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+
+        long revertedHalf = 0;
+        while (x > revertedHalf) {
+            revertedHalf = revertedHalf * 10 + x % 10;
+            x /= 10;
+        }
+        return x == revertedHalf || x == revertedHalf / 10;
+    }
     //wの中から、連続するk文字の部分文字列が回文かどうか調べる
-    public static boolean isPalindrome(String w[], int k) {
-        
-        boolean f = false;
+    public static boolean isPalindrome(String[] w, int k) {
         int n = w.length;
-        Outer:
-        for(int i=0;i<=n-k;i++) {
-            for(int j=1;j<=k/2;j++) {
-                if(!w[i+j-1].equals(w[i+k-j])) {
+        for (int i = 0; i <= n - k; i++) {
+            boolean isPalin = true;
+            for (int j = 0; j < k / 2; j++) {
+                if (!w[i + j].equals(w[i + k - 1 - j])) {
+                    isPalin = false;
                     break;
-                }else if(j == k/2) {
-                    f =true;
-                    break Outer;
                 }
             }
-            
+            if (isPalin) return true;
         }
-        return f;
+        return false;
     }
 
     //数学系ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -756,33 +772,31 @@ public class Main {
     public static double log2(long x) { return Math.log(x) / Math.log(2); }
     public static double log10(long x) { return Math.log10(x); }
     
-    //10進数のdをp進数のStringで返す　
-    public static String decimalConversion (long d, int p) {
-        StringBuilder b = new StringBuilder();
-        if(d == 0) return "0";
+    // 10進数の d を p進数の String に変換
+    public static String decimalConversion(long d, int p) {
+        if (d == 0) return "0";
 
-        while(d != 0) {
-            long work = d % p;
-            b.insert(0, work);
+        StringBuilder b = new StringBuilder();
+        while (d != 0) {
+            int digit = (int)(d % p);
+            b.append(Character.forDigit(digit, p));  // '0'-'9', 'a'-'z'
             d /= p;
         }
-
-        return b.toString();
+        return b.reverse().toString();
     }
-  //from進数の数であるnをto進数に変換
-    public static String baseConversion(String n, int from, int to) {
-        String nw[] = n.split("");
-        long p = 1;
-        long sum10 = 0;
-        //10進数に変換
-        for(int i=nw.length-1; i>=0; i--) {
-            long a = Long.valueOf(nw[i]) * p;
-            sum10 += a;
-            p *= from;
-        }
 
-        String cnvSum = decimalConversion(sum10, to);
-        return cnvSum;
+    // 任意進数n (String) を別の進数に変換する
+    public static String baseConversion(String n, int from, int to) {
+        long sum10 = 0;
+        int len = n.length();
+
+        for (int i = 0; i < len; i++) {
+            char c = n.charAt(i);
+            int digit = Character.digit(c, from);
+//            if (digit == -1) throw new IllegalArgumentException("Invalid digit for base " + from + ": " + c);
+            sum10 = sum10 * from + digit;
+        }
+        return decimalConversion(sum10, to);
     }
 }
 

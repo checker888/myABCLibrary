@@ -30,8 +30,6 @@ public class Main {
     }//ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
     
-    
-    
     //グラフーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     
     //深さ優先探索
@@ -214,7 +212,24 @@ public class Main {
 //        }
 //    }
     
-
+    public static Deque<Integer> topologicalSort(Graph g) {
+        Deque<Integer> stack = new ArrayDeque<Integer>();
+        Deque<Integer> starts = g.findStartNode();
+        while (!starts.isEmpty()) {
+          int start = starts.poll();
+          topologicalSortDfs(g, start,stack);
+      }
+        return stack;
+    }
+    public static void topologicalSortDfs(Graph g, int pos,Deque<Integer> stack) {
+        g.visited[pos] = 1;
+        int size = g.adlist.get(pos).size();
+        for(int i=0;i<size;i++) {
+            int to = g.adlist.get(pos).get(i);
+            if(g.visited[to] == 0) {topologicalSortDfs(g, to,stack);}
+        }
+        stack.push(pos);
+    }
     //探索ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     //順列全探索ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
@@ -289,6 +304,10 @@ public class Main {
     public static int count(int[] input, int value) {return upperBound(input, value) - lowerBound(input, value);}
     public static int count(long[] input, long value) {return upperBound(input, value) - lowerBound(input, value);}
     //入出力系---------------------------------------------------------------------------------------------
+    public static int gint() {return Integer.parseInt(sc.next());}
+    public static long glong() {return Long.parseLong(sc.next());}
+    public static double gdouble() {return Double.parseDouble(sc.next());}
+    public static String gstr() {return sc.next();}
     //1次元配列の入力---------------------------------------------------------------------------------------------
     public static int [] arrayInputInt(int n) {
         int [] a = new int[n];
@@ -815,6 +834,7 @@ class Graph {
   ArrayList<ArrayList<Integer>> adlist = new ArrayList<ArrayList<Integer>>();//隣接リスト
   int n;
   int visited[];
+  int indigree[];//トポロジカルソートに使う入次数
   //コンストラクタ
   public Graph(int n) {
       this.n = n;
@@ -836,6 +856,13 @@ class Graph {
 //  public boolean isConnect(int u, int v) {return this.uf.same(u, v);}
   //探索済み（または最短距離）を示すvisitedのリセット
   public void resetVisited(int value) { Arrays.fill(this.visited, value);}
+  public Deque<Integer> findStartNode(){
+      Deque<Integer> que = new ArrayDeque<Integer>();
+      for(int i = 0; i <= n; i++) {
+          if(indigree[i] == 0) {que.add(i);}
+      }
+      return que;
+  }
 }
 
 //重みつきグラフ
@@ -847,6 +874,7 @@ class WeightedGraph {
   int n;
   int visited[];
   long cur[];//ダイクストラ法で使う、頂点までのコストの総和の最小値
+  int indigree[];//トポロジカルソートに使う入次数
   long costsum;//クラスカル法で使う、すべての辺のコストの総和
   //コンストラクタ
   public WeightedGraph(int n) {
@@ -856,12 +884,14 @@ class WeightedGraph {
       for(int i=0; i<=n; i++)this.pairadlist.add(new ArrayList<Edge>());
       this.visited = new int[n+1];
       this.cur = new long[n+1];
+      this.indigree= new int[n+1];
   }
   
   //単一方向（uからv）に頂点を接続
   public void connect(int u, int v, long cost) {
       this.pairadlist.get(u).add(new Edge(v,cost));
       this.costsum += cost;
+      indigree[v] ++;
 //      edges.add(new int[] { u, v ,(int)cost });//クラスカル法のときのみ
   }
   
@@ -878,6 +908,13 @@ class WeightedGraph {
   public void resetVisited(int value) { Arrays.fill(this.visited, value);}
   
   public void resetCur() {Arrays.fill(cur, biglong);}
+  public Deque<Integer> findStartNode(){
+      Deque<Integer> que = new ArrayDeque<Integer>();
+      for(int i = 0; i <= n; i++) {
+          if(indigree[i] == 0) {que.add(i);}
+      }
+      return que;
+  }
 }
 
 
